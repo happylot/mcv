@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Quy trình bán hàng từ Việt Nam thông qua Walmart Marketplace: hồ sơ cần chuẩn bị, onboarding seller, logistics, WFS, listing, KPI vận hành, chi phí và roadmap scale tại Mỹ.">
+  <title>Quy Trình Bán Hàng Việt Nam Qua Walmart | MCV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .process-orbit {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at top right, rgba(255, 215, 0, 0.22), transparent 28%),
+        linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(141, 15, 36, 0.94));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .process-orbit p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .process-chain {
+      display: grid;
+      gap: 12px;
+    }
+
+    .process-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .process-link strong {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #fff4b0);
+      color: #1a1a1a;
+      font-size: 0.92rem;
+    }
+
+    .process-link span {
+      font-weight: 600;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .process-step {
+      padding: 24px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(26, 26, 26, 0.08);
+      box-shadow: 0 18px 40px rgba(78, 39, 16, 0.08);
+    }
+
+    .process-step h3,
+    .ops-block h3,
+    .cost-card h3 {
+      margin: 14px 0 10px;
+      font-family: var(--heading-font);
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+
+    .process-step p,
+    .ops-block p,
+    .cost-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .process-step ul,
+    .ops-block ul,
+    .cost-card ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .process-step li + li,
+    .ops-block li + li,
+    .cost-card li + li {
+      margin-top: 8px;
+    }
+
+    .ops-grid,
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .ops-block,
+    .cost-card {
+      padding: 24px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(26, 26, 26, 0.08);
+      box-shadow: 0 18px 40px rgba(78, 39, 16, 0.08);
+    }
+
+    .ops-block.recommended {
+      background: linear-gradient(160deg, rgba(255, 248, 224, 0.98), rgba(255, 255, 255, 0.92));
+      border-color: rgba(255, 215, 0, 0.48);
+    }
+
+    .metric-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 40px rgba(78, 39, 16, 0.08);
+    }
+
+    .metric-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .metric-table th,
+    .metric-table td {
+      padding: 16px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+    }
+
+    .metric-table th {
+      background: rgba(26, 26, 26, 0.92);
+      color: #fff;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .metric-table td {
+      color: var(--muted);
+    }
+
+    .mini-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .stack-table td:first-child,
+    .metric-table td:first-child {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .process-grid,
+      .ops-grid,
+      .cost-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html" aria-label="MCV home">
+          <span class="brand-mark">
+            <img src="mcv-logo.png" alt="MCV logo">
+          </span>
+        </a>
+        <nav class="nav" data-nav>
+          <a href="index.html">Trang chủ</a>
+          <a href="about.html">Về MCV</a>
+          <a href="services.html">Hệ dịch vụ</a>
+          <a href="partners.html">Hệ sinh thái</a>
+          <a href="contact.html">Liên hệ</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn btn-secondary nav-cta" href="contact.html">Đặt lịch tư vấn</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Mở menu" data-menu-toggle>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="page-hero-panel reveal">
+            <div class="page-hero-grid">
+              <div class="page-hero-copy">
+                <span class="eyebrow">Walmart marketplace playbook</span>
+                <h1>Quy trình bán hàng từ Việt Nam sang Mỹ thông qua Walmart Marketplace.</h1>
+                <p>
+                  Đây là mô hình cross-border eCommerce B2C điển hình: chuẩn hóa pháp nhân và hồ sơ seller tại Việt Nam,
+                  đưa hàng sang Mỹ trước, vận hành fulfillment nội địa, rồi tối ưu listing, ads và dòng tiền USD.
+                </p>
+                <div class="hero-actions">
+                  <a class="btn btn-primary" href="#process-flow">Xem toàn bộ quy trình</a>
+                  <a class="btn btn-secondary" href="contact.html">Nhận checklist approval</a>
+                </div>
+                <div class="hero-notes">
+                  <span>Vietnam seller onboarding</span>
+                  <span>US warehouse / WFS</span>
+                  <span>USD payout to Vietnam</span>
+                </div>
+              </div>
+              <aside class="process-orbit reveal">
+                <span class="eyebrow">Flow overview</span>
+                <div class="process-chain">
+                  <div class="process-link"><strong>1</strong><span>Nhà cung cấp Việt Nam</span></div>
+                  <div class="process-link"><strong>2</strong><span>Kho Việt Nam và kiểm hàng</span></div>
+                  <div class="process-link"><strong>3</strong><span>Xuất hàng sang Mỹ</span></div>
+                  <div class="process-link"><strong>4</strong><span>Kho US hoặc WFS</span></div>
+                  <div class="process-link"><strong>5</strong><span>Listing trên Walmart</span></div>
+                  <div class="process-link"><strong>6</strong><span>Khách Mỹ đặt hàng</span></div>
+                  <div class="process-link"><strong>7</strong><span>Fulfillment và CS</span></div>
+                  <div class="process-link"><strong>8</strong><span>Thu USD và rút về Việt Nam</span></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="stat-grid">
+            <article class="stat-card reveal">
+              <strong>3-10</strong>
+              <span>ngày là nhịp verify phổ biến, có thể kéo dài 2-4 tuần nếu review kỹ</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>8-15%</strong>
+              <span>mức referral fee phổ biến theo nhóm ngành trên Walmart Marketplace</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>&gt;99%</strong>
+              <span>mục tiêu on-time shipping để giữ account health ổn định</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>10-30</strong>
+              <span>SKU nên test trước khi scale catalog và ads</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process-flow">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Execution flow</span>
+              <h2>Quy trình thực tế cho seller Việt Nam đi Walmart không bắt đầu từ listing, mà từ readiness.</h2>
+            </div>
+            <p class="kicker">
+              Nếu hồ sơ, logistics và năng lực fulfillment chưa sẵn, listing lên trước sẽ làm tăng rủi ro bị chậm approve,
+              mất Buy Box hoặc vi phạm KPI vận hành.
+            </p>
+          </div>
+          <div class="process-grid">
+            <article class="process-step reveal">
+              <div class="card-icon">01</div>
+              <h3>Thành lập pháp nhân và chuẩn hồ sơ</h3>
+              <p>Chuẩn bị bộ giấy tờ đủ để Walmart verify doanh nghiệp và hệ thống thanh toán.</p>
+              <ul>
+                <li>Giấy phép kinh doanh, mã số thuế, passport hoặc CCCD người đại diện</li>
+                <li>Website công ty, domain email riêng, sao kê ngân hàng</li>
+                <li>Mã UPC hoặc GTIN cho sản phẩm và chính sách đổi trả rõ ràng</li>
+              </ul>
+            </article>
+            <article class="process-step reveal">
+              <div class="card-icon">02</div>
+              <h3>Đăng ký Walmart Seller và business verification</h3>
+              <p>Nộp form seller, qua vòng xác minh doanh nghiệp, website, lịch sử bán hàng và khả năng fulfillment tại Mỹ.</p>
+              <ul>
+                <li>Điền hồ sơ tại Walmart Seller Application</li>
+                <li>Kỳ vọng 3-10 ngày làm việc, lâu hơn nếu bị review thủ công</li>
+                <li>Thiết lập payout qua Payoneer hoặc Hyperwallet</li>
+              </ul>
+            </article>
+            <article class="process-step reveal">
+              <div class="card-icon">03</div>
+              <h3>Chuẩn bị hàng tại Việt Nam và xuất sang Mỹ</h3>
+              <p>Đây là phần quyết định khả năng giao nhanh, giữ rating và tối ưu conversion trên Walmart.</p>
+              <ul>
+                <li>Kiểm hàng, dán nhãn, đóng gói theo chuẩn kho Mỹ hoặc WFS</li>
+                <li>Chọn freight forwarder phù hợp giữa sea freight và air freight</li>
+                <li>Chuẩn bị bộ chứng từ xuất khẩu, commercial invoice và packing list</li>
+              </ul>
+            </article>
+            <article class="process-step reveal">
+              <div class="card-icon">04</div>
+              <h3>Thiết lập kho Mỹ, địa chỉ đổi trả và SLA ship</h3>
+              <p>Walmart đánh giá seller theo năng lực vận hành nội địa Mỹ, không phù hợp với mô hình ship chậm từ Việt Nam.</p>
+              <ul>
+                <li>Set warehouse US hoặc đưa hàng vào Walmart Fulfillment Services</li>
+                <li>Xây return address tại Mỹ và quy trình xử lý hoàn trả</li>
+                <li>Kiểm soát tracking valid, cut-off time và carrier mapping</li>
+              </ul>
+            </article>
+            <article class="process-step reveal">
+              <div class="card-icon">05</div>
+              <h3>Upload catalog và tối ưu listing</h3>
+              <p>Listing Walmart gần Amazon về logic tìm kiếm nhưng nhạy hơn về giá và tốc độ giao hàng.</p>
+              <ul>
+                <li>Title theo format thương hiệu, keyword, size hoặc feature</li>
+                <li>Ảnh nền trắng, ảnh lifestyle, infographic và video ngắn</li>
+                <li>Nội dung tự nhiên, đúng compliance Mỹ và đồng nhất dữ liệu sản phẩm</li>
+              </ul>
+            </article>
+            <article class="process-step reveal">
+              <div class="card-icon">06</div>
+              <h3>Vận hành đơn, ads và rút tiền</h3>
+              <p>Sau khi có sales, trọng tâm chuyển sang account health, review velocity và scale profitable SKUs.</p>
+              <ul>
+                <li>Chạy Walmart Connect để đẩy hero SKU và search placement</li>
+                <li>Đồng bộ external traffic từ TikTok US, Meta, SEO blog hoặc influencer</li>
+                <li>Nhận tiền USD qua Payoneer rồi chuyển về tài khoản ngân hàng tại Việt Nam</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Operating models</span>
+              <h2>3 cách seller Việt Nam thường triển khai logistics cho Walmart.</h2>
+            </div>
+          </div>
+          <div class="ops-grid">
+            <article class="ops-block recommended reveal">
+              <span class="eyebrow">Khuyến nghị</span>
+              <h3>Gửi hàng sang Mỹ trước</h3>
+              <p>Mô hình phù hợp nhất để đạt tốc độ giao hàng và độ ổn định account health.</p>
+              <ul>
+                <li>Conversion tốt hơn nhờ ship nội địa Mỹ</li>
+                <li>Dễ giữ Buy Box và giảm tỷ lệ hủy</li>
+                <li>Đổi lại cần vốn tồn kho và forecast chắc hơn</li>
+              </ul>
+            </article>
+            <article class="ops-block reveal">
+              <span class="eyebrow">WFS</span>
+              <h3>Walmart Fulfillment Services</h3>
+              <p>Gửi hàng vào kho Walmart để nhận badge Fulfilled by Walmart và giao hàng do Walmart xử lý.</p>
+              <ul>
+                <li>Tăng trust và ranking cho listing</li>
+                <li>Giảm tải vận hành đơn lẻ cho seller</li>
+                <li>Phải chuẩn SOP inbound và chi phí lưu kho</li>
+              </ul>
+            </article>
+            <article class="ops-block reveal">
+              <span class="eyebrow">Rủi ro cao</span>
+              <h3>Dropshipping trực tiếp từ Việt Nam</h3>
+              <p>Không phù hợp nếu shipping time dài và không giữ được chuẩn vận hành Walmart.</p>
+              <ul>
+                <li>Dễ vi phạm SLA giao hàng và tracking</li>
+                <li>Tỷ lệ hủy đơn và return dispute tăng mạnh</li>
+                <li>Nguy cơ suppress listing hoặc suspend account</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Performance guardrails</span>
+              <h2>Walmart siết KPI vận hành rất chặt, đặc biệt với seller mới.</h2>
+            </div>
+          </div>
+          <div class="metric-table-wrap reveal">
+            <table class="metric-table">
+              <thead>
+                <tr>
+                  <th>Chỉ số</th>
+                  <th>Mức nên đạt</th>
+                  <th>Ý nghĩa vận hành</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>On-time shipping</td>
+                  <td>&gt;99%</td>
+                  <td>Giữ account health ổn và hạn chế phát sinh late shipment warnings</td>
+                </tr>
+                <tr>
+                  <td>Cancellation rate</td>
+                  <td>&lt;2%</td>
+                  <td>Cho thấy tồn kho, feed và xử lý đơn không bị lệch thực tế</td>
+                </tr>
+                <tr>
+                  <td>Tracking valid</td>
+                  <td>Gần như 100%</td>
+                  <td>Bắt buộc để Walmart tin tưởng pipeline fulfillment của seller</td>
+                </tr>
+                <tr>
+                  <td>Return handling</td>
+                  <td>Nhanh, rõ SLA</td>
+                  <td>Ảnh hưởng trực tiếp đến buyer experience và nguy cơ tranh chấp</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mini-note reveal">
+            Khi fulfillment lỗi lặp lại, hệ quả thường là suppress listing, giữ tiền hoặc suspend account trước khi seller kịp scale.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Economics</span>
+              <h2>Chi phí thực tế thường nằm ở logistics, compliance và tồn kho hơn là phí mở gian hàng.</h2>
+            </div>
+          </div>
+          <div class="cost-grid">
+            <article class="cost-card reveal">
+              <h3>Chi phí nền tảng</h3>
+              <ul>
+                <li>LLC Mỹ nếu cần: khoảng 200-800 USD</li>
+                <li>UPC GS1: khoảng 250-500 USD</li>
+                <li>Trademark US: khoảng 250-1000 USD</li>
+              </ul>
+            </article>
+            <article class="cost-card reveal">
+              <h3>Chi phí vận hành</h3>
+              <ul>
+                <li>Kho Mỹ và xử lý đổi trả tùy volume</li>
+                <li>Freight thường là khoản chi lớn nhất</li>
+                <li>Ads, content và ảnh sản phẩm quyết định tốc độ test SKU</li>
+              </ul>
+            </article>
+            <article class="cost-card reveal">
+              <h3>Phí Walmart</h3>
+              <ul>
+                <li>Referral fee phổ biến 8-15% tùy ngành hàng</li>
+                <li>Không có phí mở shop</li>
+                <li>Không có monthly fee cố định kiểu marketplace subscription</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Roadmap</span>
+              <h2>Lộ trình nên đi cho seller Việt Nam muốn vào Walmart bài bản.</h2>
+            </div>
+          </div>
+          <div class="timeline">
+            <article class="timeline-card reveal">
+              <div class="timeline-year">01</div>
+              <div>
+                <h3>Approval</h3>
+                <p>Chuẩn website, domain email, hồ sơ doanh nghiệp, chính sách bán hàng và năng lực fulfillment tại Mỹ.</p>
+              </div>
+            </article>
+            <article class="timeline-card reveal">
+              <div class="timeline-year">02</div>
+              <div>
+                <h3>Test SKU</h3>
+                <p>Upload 10-30 SKU đầu tiên, chọn hero product, kiểm chứng giá, conversion và review velocity.</p>
+              </div>
+            </article>
+            <article class="timeline-card reveal">
+              <div class="timeline-year">03</div>
+              <div>
+                <h3>Scale</h3>
+                <p>Dùng WFS hoặc kho Mỹ ổn định hơn, mở ads, build review và đồng bộ inventory cho mô hình omni-channel.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Stack phổ biến</span>
+              <h2>Bộ công cụ mà seller Việt Nam thường dùng khi chạy Walmart cùng các kênh khác.</h2>
+            </div>
+          </div>
+          <div class="metric-table-wrap reveal">
+            <table class="metric-table stack-table">
+              <thead>
+                <tr>
+                  <th>Hạng mục</th>
+                  <th>Tool / mô hình thường dùng</th>
+                  <th>Vai trò</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Store management</td>
+                  <td>Shopify</td>
+                  <td>Giữ storefront và tài sản dữ liệu thương hiệu</td>
+                </tr>
+                <tr>
+                  <td>Inventory sync</td>
+                  <td>Sellbrite hoặc Linnworks</td>
+                  <td>Đồng bộ stock giữa Walmart, Amazon, Shopify và các kênh khác</td>
+                </tr>
+                <tr>
+                  <td>Repricing</td>
+                  <td>Feedvisor hoặc công cụ tương đương</td>
+                  <td>Giảm nguy cơ mất Buy Box vì lệch giá</td>
+                </tr>
+                <tr>
+                  <td>Ads</td>
+                  <td>Walmart Connect</td>
+                  <td>Scale search visibility cho SKU có unit economics tốt</td>
+                </tr>
+                <tr>
+                  <td>Warehouse</td>
+                  <td>US warehouse hoặc WFS</td>
+                  <td>Rút ngắn thời gian giao hàng và giữ SLA</td>
+                </tr>
+                <tr>
+                  <td>Payments</td>
+                  <td>Payoneer</td>
+                  <td>Nhận USD payout và rút về ngân hàng Việt Nam</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel reveal">
+            <span class="eyebrow">Seller readiness</span>
+            <h2>Nếu cần đi Walmart theo hướng có thể scale, MCV có thể hỗ trợ từ readiness đến cấu trúc vận hành.</h2>
+            <p>
+              Phù hợp khi doanh nghiệp cần checklist approval, sơ đồ logistics tối ưu chi phí, cấu trúc seller team,
+              roadmap SEO hoặc mô hình vận hành Walmart song song Amazon và Shopify.
+            </p>
+            <div class="hero-actions" style="margin-top: 22px;">
+              <a class="btn btn-primary" href="contact.html">Nhận tư vấn triển khai</a>
+              <a class="btn btn-secondary" href="services.html">Xem toàn bộ hệ dịch vụ</a>
+            </div>
+            <div class="inline-list" style="margin-top: 22px;">
+              <a href="https://marketplace.walmart.com/" target="_blank" rel="noreferrer">Walmart Marketplace</a>
+              <a href="https://marketplace.walmart.com/partner-with-us/" target="_blank" rel="noreferrer">Seller Application</a>
+              <a href="https://marketplace.walmart.com/walmart-fulfillment-services/" target="_blank" rel="noreferrer">Walmart Fulfillment Services</a>
+              <a href="https://www.walmartconnect.com/" target="_blank" rel="noreferrer">Walmart Connect</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-shell">
+          <div class="footer-copy">
+            <img src="mcv-logo.png" alt="MCV logo">
+            <p>MCV GLOBAL JSC - MST: 0111272400</p>
+            <p>Hệ điều hành toàn trình cho cross-border e-commerce.</p>
+            <p>Tòa nhà 169 Nguyễn Ngọc Vũ, Hà Nội, Việt Nam</p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <strong>Điều hướng</strong>
+              <a href="index.html">Trang chủ</a><br>
+              <a href="services.html">Hệ dịch vụ</a><br>
+              <a href="contact.html">Liên hệ</a>
+            </div>
+            <div>
+              <strong>Liên hệ</strong>
+              <span>Hotline: 096 152 1688</span><br>
+              <span>Email: ceo@matchingvietnam.com</span><br>
+              <span data-year></span>
+              <p class="legal">© MCV. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
