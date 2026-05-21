@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Planning 2026 của MCV: chiến lược kinh doanh, KPI, cơ cấu bộ máy, nguồn lực và 2 nhánh tăng trưởng MCV Global và MCV Healthcare.">
+  <title>Planning 2026 | MCV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (() => {
+      const ACCESS_KEY = "mcv-planning-access-v1";
+      const hostname = window.location.hostname;
+      const isLocalHost = hostname === "localhost"
+        || hostname === "127.0.0.1"
+        || hostname === "::1"
+        || hostname.endsWith(".local");
+      const isProduction = window.location.protocol !== "file:" && !isLocalHost;
+      const isUnlocked = window.sessionStorage.getItem(ACCESS_KEY) === "granted";
+
+      if (isProduction && !isUnlocked) {
+        document.documentElement.classList.add("planning-locked");
+      }
+    })();
+  </script>
+  <style>
+    html.planning-locked,
+    html.planning-locked body {
+      overflow: hidden;
+    }
+
+    html.planning-locked .site-shell {
+      visibility: hidden;
+    }
+
+    .planning-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 215, 0, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(200, 16, 46, 0.18), transparent 24%),
+        linear-gradient(160deg, rgba(26, 26, 26, 0.96), rgba(86, 9, 22, 0.96));
+    }
+
+    .planning-gate[hidden] {
+      display: none;
+    }
+
+    .planning-gate-card {
+      width: min(100%, 460px);
+      padding: 32px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.26);
+    }
+
+    .planning-gate-card h1 {
+      margin: 0 0 12px;
+      font-family: "Be Vietnam Pro", sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .planning-gate-card p {
+      margin: 0 0 20px;
+      color: #5f5f5f;
+    }
+
+    .planning-gate-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .planning-gate-form label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .planning-gate-form input {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 16px;
+      border: 1px solid rgba(26, 26, 26, 0.12);
+      border-radius: 14px;
+      background: #fff;
+      outline: none;
+    }
+
+    .planning-gate-form input:focus {
+      border-color: rgba(200, 16, 46, 0.55);
+      box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.12);
+    }
+
+    .planning-gate-error {
+      min-height: 22px;
+      margin: 0;
+      color: #c8102e;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="planning-gate" data-planning-gate hidden>
+    <div class="planning-gate-card">
+      <span class="eyebrow">Restricted Access</span>
+      <h1>Nhập mật khẩu để xem planning.</h1>
+      <p>Trang `planning.html` chỉ mở khi nhập đúng mật khẩu trên môi trường production.</p>
+      <form class="planning-gate-form" data-planning-gate-form>
+        <label for="planning-password">Mật khẩu</label>
+        <input id="planning-password" name="password" type="password" autocomplete="current-password"
+          placeholder="Nhập mật khẩu truy cập" required>
+        <button class="btn btn-primary" type="submit">Mở trang</button>
+        <p class="planning-gate-error" data-planning-gate-error aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html" aria-label="MCV home">
+          <span class="brand-mark">
+            <img src="mcv-logo.png" alt="MCV logo">
+          </span>
+        </a>
+        <nav class="nav" data-nav>
+          <a href="index.html">Trang chủ</a>
+          <a href="about.html">Về MCV</a>
+          <div class="nav-item has-submenu" data-match="services.html">
+            <button class="nav-trigger" type="button" aria-expanded="false" data-submenu-toggle>Hệ dịch vụ</button>
+            <div class="submenu">
+              <a href="services.html">Tổng quan dịch vụ</a>
+              <a href="walmart-vietnam.html">Quy trình Walmart từ Việt Nam</a>
+            </div>
+          </div>
+          <a href="partners.html">Hệ sinh thái</a>
+          <a href="contact.html">Liên hệ</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn btn-secondary nav-cta" href="contact.html">Đặt lịch tư vấn</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Mở menu" data-menu-toggle>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="page-hero-panel reveal">
+            <div class="page-hero-grid">
+              <div class="page-hero-copy">
+                <span class="eyebrow">Planning 2026</span>
+                <h1>Kế hoạch kinh doanh MCV 2026 theo mô hình 2 động cơ tăng trưởng.</h1>
+                <p>
+                  Planning này được xây để biến networking, sự kiện và hệ quan hệ hiện có thành một cỗ máy tạo doanh thu có
+                  thể dự báo, với một nhánh dài hạn là <strong>MCV Global</strong> và một nhánh tạo cashflow nhanh là
+                  <strong>MCV Healthcare</strong>.
+                </p>
+                <div class="hero-actions">
+                  <a class="btn btn-primary" href="#growth-engines">Xem mô hình tăng trưởng</a>
+                  <a class="btn btn-secondary" href="#roadmap-2026">Xem lộ trình 2026</a>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-icon">26</div>
+                <h3>Trọng tâm điều hành</h3>
+                <ul class="check-list">
+                  <li>Không mở rộng lan man, chỉ tập trung vào pipeline có thể đo được</li>
+                  <li>Biến event thành sales funnel thực thụ</li>
+                  <li>Dùng Healthcare tạo cashflow và hút lead cho Global</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="stat-grid">
+            <article class="stat-card reveal">
+              <strong>2</strong>
+              <span>nhánh doanh thu bổ trợ nhau</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>15-25</strong>
+              <span>khách hàng mục tiêu cho nhánh Global</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>30-80</strong>
+              <span>publisher active mục tiêu cho Healthcare</span>
+            </article>
+            <article class="stat-card reveal">
+              <strong>2.5-4T</strong>
+              <span>kịch bản doanh thu chuẩn cho 7 tháng cuối năm</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="growth-engines">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Growth Engines</span>
+              <h2>MCV nên chạy bằng 2 động cơ tăng trưởng có vai trò khác nhau.</h2>
+            </div>
+            <p class="kicker">
+              Một nhánh xây thương hiệu, deal lớn và năng lực dài hạn. Một nhánh tạo dòng tiền ngắn hạn, dữ liệu performance và
+              cộng đồng publisher.
+            </p>
+          </div>
+          <div class="split-section">
+            <article class="spotlight reveal">
+              <span class="eyebrow">MCV Global</span>
+              <h2>Động cơ chiến lược dài hạn.</h2>
+              <p>
+                Tập trung vào buyer matching, business matching, cross-border commerce enablement, website, CRM, payment,
+                compliance và market access.
+              </p>
+              <div class="inline-list" style="margin-top: 24px;">
+                <span>Business matching</span>
+                <span>Cross-border</span>
+                <span>Success fee</span>
+                <span>Retainer</span>
+              </div>
+            </article>
+            <article class="spotlight reveal" style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(135, 14, 34, 0.92)), #1a1a1a;">
+              <span class="eyebrow">MCV Healthcare</span>
+              <h2>Động cơ cashflow và performance sale.</h2>
+              <p>
+                MCV đàm phán commission với nhà máy, bệnh viện, đối tác health rồi phân phối cho mạng lưới publisher triển khai
+                content, traffic và bán hàng. Doanh thu phát sinh được chia <strong>70% cho publisher</strong> và
+                <strong>30% cho công ty</strong>.
+              </p>
+              <div class="inline-list" style="margin-top: 24px;">
+                <span>Affiliate network</span>
+                <span>Publisher engine</span>
+                <span>Short-term cashflow</span>
+                <span>Lead funnel</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="plan-band dark reveal">
+            <span class="eyebrow">Operating Logic</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.12;">
+              Healthcare nuôi cashflow và data. Global nâng cấp khách hàng lên deal lớn hơn.
+            </h2>
+            <p class="plan-kicker">
+              Hai nhánh này không nên vận hành tách rời. Chúng phải tạo thành một vòng lặp thương mại: networking mở cơ hội,
+              Healthcare tạo dòng tiền nhanh, Global chuyển đổi khách hàng phù hợp sang bài toán lớn hơn.
+            </p>
+            <div class="plan-meta">
+              <span>Networking -> Lead</span>
+              <span>Healthcare -> Cashflow</span>
+              <span>Global -> High-value deals</span>
+              <span>Event -> Trust + Pipeline</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="kpi-2026">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">KPI Framework</span>
+              <h2>KPI nên đo theo phễu thương mại, không đo theo mức độ bận rộn.</h2>
+            </div>
+            <p class="kicker">
+              Chỉ số phải cho phép dự báo doanh thu. Mỗi event, mỗi cuộc gặp, mỗi publisher cần được quy về conversion logic.
+            </p>
+          </div>
+          <div class="kpi-board">
+            <article class="kpi-cluster reveal">
+              <h3>KPI Tổng Công Ty</h3>
+              <span class="kpi-number">250-350</span>
+              <p>Kết nối mới đúng chân dung khách hàng trong 7 tháng cuối năm.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>80-120 cuộc gặp chất lượng</li>
+                <li>40-60 lead qualified</li>
+                <li>20-35 hợp đồng hoặc thỏa thuận thương mại</li>
+              </ul>
+            </article>
+            <article class="kpi-cluster reveal">
+              <h3>KPI MCV Global</h3>
+              <span class="kpi-number">15-25</span>
+              <p>Khách hàng mục tiêu có trả tiền cho mảng Global.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>4-6 proposal mỗi tháng</li>
+                <li>2-4 hợp đồng mới mỗi tháng</li>
+                <li>1 event hoặc matching session mỗi tháng</li>
+              </ul>
+            </article>
+            <article class="kpi-cluster reveal">
+              <h3>KPI MCV Healthcare</h3>
+              <span class="kpi-number">30-80</span>
+              <p>Publisher active là ngưỡng đủ để bắt đầu scale offer thắng.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>5-10 đối tác supply ban đầu</li>
+                <li>10-20 publisher tạo doanh thu thực tế</li>
+                <li>Đo được EPC, CPA và conversion rate theo offer</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="org-model">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Org Model</span>
+              <h2>Bộ máy nên tinh gọn, nhưng phải có owner rõ cho từng nhánh.</h2>
+            </div>
+            <p class="kicker">
+              Giai đoạn này chưa cần đội quá lớn. Điều quan trọng là founder không ôm toàn bộ follow-up và Healthcare có người
+              vận hành publisher thật sự.
+            </p>
+          </div>
+          <div class="org-grid">
+            <article class="org-lane reveal">
+              <h3>Ban lõi MCV</h3>
+              <div class="org-role">
+                <strong>Founder / CEO</strong>
+                <span>Quan hệ chiến lược, chốt deal lớn, đàm phán đối tác cấp cao</span>
+              </div>
+              <div class="org-role">
+                <strong>Business Development Lead</strong>
+                <span>Pipeline Global, follow-up lead, meeting, proposal, closing</span>
+              </div>
+              <div class="org-role">
+                <strong>Partnership & Community Lead</strong>
+                <span>Hội nhóm, event, referral partner, community activation</span>
+              </div>
+              <div class="org-role">
+                <strong>Project / Account Manager</strong>
+                <span>Onboarding, điều phối triển khai, giữ trải nghiệm khách hàng</span>
+              </div>
+            </article>
+            <article class="org-lane reveal">
+              <h3>Tổ MCV Healthcare</h3>
+              <div class="org-role">
+                <strong>Affiliate Network Manager</strong>
+                <span>Tuyển publisher, kích hoạt publisher, đo hiệu suất, tối ưu output</span>
+              </div>
+              <div class="org-role">
+                <strong>Offer & Supply Manager</strong>
+                <span>Làm việc với nhà máy, bệnh viện, nhãn hàng health, policy và commission</span>
+              </div>
+              <div class="org-role">
+                <strong>Content / Marketing Executive</strong>
+                <span>Sales kit, case study, content social, content mẫu cho publisher</span>
+              </div>
+              <div class="org-role">
+                <strong>Finance / Admin</strong>
+                <span>Hợp đồng, đối soát doanh thu, payout publisher, công nợ</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container split-section">
+          <article class="plan-band reveal">
+            <span class="eyebrow">Core Activities</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(1.9rem, 3vw, 2.5rem);">
+              6 hoạt động cần chạy song song.
+            </h2>
+            <ul class="plan-list" style="margin-top: 8px;">
+              <li>Networking có mục tiêu theo từng cộng đồng</li>
+              <li>Event-led sales với form lead và follow-up rõ ràng</li>
+              <li>Referral partner program cho đối tác chiến lược</li>
+              <li>Outbound chọn lọc, không spam đại trà</li>
+              <li>Publisher onboarding cho MCV Healthcare</li>
+              <li>Content hỗ trợ chốt deal và hỗ trợ publisher bán hàng</li>
+            </ul>
+          </article>
+          <article class="plan-band reveal">
+            <span class="eyebrow">Required Resources</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(1.9rem, 3vw, 2.5rem);">
+              Nguồn lực tối thiểu để bộ máy chạy được.
+            </h2>
+            <ul class="plan-list" style="margin-top: 8px;">
+              <li>CRM và dashboard điều hành hàng tuần</li>
+              <li>One-pager, deck, proposal, case study cho MCV Global</li>
+              <li>Publisher policy, tracking, payout sheet cho Healthcare</li>
+              <li>Ngân sách nhân sự, event, tiếp khách và test digital từ Q3</li>
+              <li>Owner rõ cho sales, community, publisher, đối soát</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="financial-plan">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Financial Plan</span>
+              <h2>Phương án tài chính phải đủ an toàn để nuôi bộ máy và đủ linh hoạt để scale nhánh thắng.</h2>
+            </div>
+            <p class="kicker">
+              Giai đoạn 2026 nên quản trị tài chính theo nguyên tắc sống được trước, tối ưu sau: giữ chi phí cố định gọn,
+              dùng Healthcare tạo dòng tiền ngắn hạn, và tái đầu tư có kỷ luật vào nhánh Global.
+            </p>
+          </div>
+          <div class="kpi-board">
+            <article class="kpi-cluster reveal">
+              <h3>Kịch bản doanh thu</h3>
+              <span class="kpi-number">2.5-4T</span>
+              <p>Kịch bản chuẩn cho 7 tháng cuối năm, đủ để nuôi bộ máy gọn và có ngân sách mở rộng có chọn lọc.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>Kịch bản thấp: 1.5 - 2 tỷ</li>
+                <li>Kịch bản chuẩn: 2.5 - 4 tỷ</li>
+                <li>Kịch bản tốt: 4 - 6 tỷ</li>
+              </ul>
+            </article>
+            <article class="kpi-cluster reveal">
+              <h3>Tỷ trọng doanh thu</h3>
+              <span class="kpi-number">60 / 40</span>
+              <p>Tỷ trọng gợi ý giữa nhánh chiến lược dài hạn và nhánh cashflow ngắn hạn trong năm 2026.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>MCV Global: 55-70% doanh thu</li>
+                <li>MCV Healthcare: 30-45% doanh thu</li>
+                <li>Healthcare dùng để hút lead và bù áp lực dòng tiền</li>
+              </ul>
+            </article>
+            <article class="kpi-cluster reveal">
+              <h3>Điểm hòa vốn vận hành</h3>
+              <span class="kpi-number">250-350M</span>
+              <p>Mức doanh thu tháng nên đạt để bộ máy core vận hành an toàn mà không bị founder phải bơm thêm liên tục.</p>
+              <ul class="plan-list" style="margin-top: 18px;">
+                <li>Ưu tiên thu tiền nhanh hơn ký hợp đồng nhiều</li>
+                <li>Giữ quỹ dự phòng tối thiểu 3 tháng chi phí</li>
+                <li>Chỉ scale khi đã có tín hiệu conversion thật</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container split-section">
+          <article class="plan-band reveal">
+            <span class="eyebrow">Cost Structure</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(1.9rem, 3vw, 2.5rem);">
+              Cấu trúc chi phí nên đi theo mô hình lean nhưng có quỹ đánh thử.
+            </h2>
+            <ul class="plan-list" style="margin-top: 8px;">
+              <li>Nhân sự core: 80 - 180 triệu/tháng</li>
+              <li>Event và networking: 20 - 60 triệu/tháng</li>
+              <li>Tiếp khách, di chuyển, quan hệ: 10 - 20 triệu/tháng</li>
+              <li>Content, thiết kế, công cụ, CRM: 10 - 20 triệu/tháng</li>
+              <li>Ngân sách test digital từ Q3: 15 - 40 triệu/tháng</li>
+            </ul>
+          </article>
+          <article class="plan-band reveal">
+            <span class="eyebrow">Cash Allocation</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(1.9rem, 3vw, 2.5rem);">
+              Dòng tiền vào phải được phân bổ theo thứ tự ưu tiên rõ ràng.
+            </h2>
+            <ul class="plan-list" style="margin-top: 8px;">
+              <li>40% cho vận hành core và chi phí cố định</li>
+              <li>20% cho event, community và business development</li>
+              <li>20% cho quỹ tái đầu tư vào offer thắng hoặc publisher thắng</li>
+              <li>10% cho quỹ dự phòng dòng tiền</li>
+              <li>10% cho thử nghiệm mới và thưởng hiệu suất</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="plan-band dark reveal">
+            <span class="eyebrow">Healthcare Economics</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12;">
+              MCV Healthcare phải được nhìn như một bài toán unit economics, không chỉ là một network cho đông người tham gia.
+            </h2>
+            <div class="grid grid-3" style="margin-top: 8px;">
+              <article class="plan-step">
+                <h3>Đầu vào</h3>
+                <p>MCV chốt offer, commission, điều kiện ghi nhận doanh thu, policy hoàn hủy và kỳ đối soát với nhà máy hoặc bệnh viện.</p>
+              </article>
+              <article class="plan-step">
+                <h3>Phân phối</h3>
+                <p>Publisher nhận 70%, MCV giữ 30%, nhưng chỉ nên scale các offer có conversion thật và payout minh bạch.</p>
+              </article>
+              <article class="plan-step">
+                <h3>Nguyên tắc tài chính</h3>
+                <p>Không ứng tiền lớn trước khi đối tác có lịch sử thanh toán ổn. Ưu tiên offer có chu kỳ đối soát ngắn và tỷ lệ hoàn thấp.</p>
+              </article>
+            </div>
+            <div class="plan-meta" style="margin-top: 4px;">
+              <span>Publisher payout: 70%</span>
+              <span>MCV gross share: 30%</span>
+              <span>Offer có refund cao thì dừng sớm</span>
+              <span>Scale theo data, không scale theo cảm tính</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-2026">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="eyebrow">Roadmap 2026</span>
+              <h2>Lộ trình triển khai nên chia thành 3 giai đoạn rõ chức năng.</h2>
+            </div>
+            <p class="kicker">
+              Không cố scale ngay từ đầu. Giai đoạn 1 dựng máy, giai đoạn 2 tạo doanh thu và dữ liệu, giai đoạn 3 mới scale
+              có chọn lọc.
+            </p>
+          </div>
+          <div class="roadmap-grid">
+            <article class="roadmap-card reveal">
+              <strong>Giai đoạn 1</strong>
+              <h3>17/05 - 30/06</h3>
+              <p>Dựng bộ máy bán hàng và chuẩn hóa offer.</p>
+              <ul class="plan-list">
+                <li>Chốt offer của MCV Global</li>
+                <li>Chốt 3-5 offer đầu tiên cho Healthcare</li>
+                <li>Setup CRM, dashboard và sales kit</li>
+                <li>Tận dụng event 27/05 như một sales funnel thật</li>
+              </ul>
+            </article>
+            <article class="roadmap-card reveal">
+              <strong>Giai đoạn 2</strong>
+              <h3>01/07 - 30/09</h3>
+              <p>Tạo doanh thu thật và tối ưu conversion.</p>
+              <ul class="plan-list">
+                <li>Mỗi tháng 1 event hoặc co-host event</li>
+                <li>Kích hoạt referral partner program</li>
+                <li>Test nhiều publisher, loại offer yếu</li>
+                <li>Chuẩn hóa đối soát và payout</li>
+              </ul>
+            </article>
+            <article class="roadmap-card reveal">
+              <strong>Giai đoạn 3</strong>
+              <h3>01/10 - 31/12</h3>
+              <p>Scale nhánh thắng và khóa deal cuối năm.</p>
+              <ul class="plan-list">
+                <li>Tập trung vào vertical có conversion tốt</li>
+                <li>Scale publisher chất lượng cao</li>
+                <li>Tăng tỷ lệ proposal thành hợp đồng</li>
+                <li>Chuẩn bị pipeline cho Q1/2027</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="plan-band reveal">
+            <span class="eyebrow">14-Day Action Plan</span>
+            <h2 style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: clamp(2rem, 4vw, 3rem);">
+              14 ngày tới phải khóa những việc nền tảng.
+            </h2>
+            <div class="grid grid-3" style="margin-top: 6px;">
+              <article class="plan-step">
+                <h3>1. Chốt offer</h3>
+                <p>Khóa 3 offer của MCV Global và 3-5 offer đầu tiên của MCV Healthcare để sales có thứ cụ thể mang đi bán.</p>
+              </article>
+              <article class="plan-step">
+                <h3>2. Gom dữ liệu</h3>
+                <p>Đưa toàn bộ lead từ JCI, HanoiBA, CEO1989, BNI, MMO và event hiện tại vào cùng một CRM.</p>
+              </article>
+              <article class="plan-step">
+                <h3>3. Dựng owner</h3>
+                <p>Chốt người phụ trách BD, publisher network, community/event và đối soát để founder không phải ôm toàn bộ.</p>
+              </article>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="contact.html">Bắt đầu triển khai</a>
+              <a class="btn btn-ghost" href="#org-model">Xem cơ cấu bộ máy</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-shell">
+          <div class="footer-copy">
+            <img src="mcv-logo.png" alt="MCV logo">
+            <p>Planning page này được dùng để minh họa logic điều hành 2026 của MCV theo mô hình 2 động cơ tăng trưởng.</p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <strong>Điều hướng</strong>
+              <a href="index.html">Trang chủ</a><br>
+              <a href="services.html">Hệ dịch vụ</a><br>
+              <a href="contact.html">Liên hệ</a>
+            </div>
+            <div>
+              <strong>Liên hệ</strong>
+              <span>Hotline: 096 152 1688</span><br>
+              <span>Email: ceo@matchingvietnam.com</span><br>
+              <p class="legal">© <span data-year></span> MCV.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    (() => {
+      const ACCESS_KEY = "mcv-planning-access-v1";
+      const PASSWORD = "mcv@123";
+      const gate = document.querySelector("[data-planning-gate]");
+      const form = document.querySelector("[data-planning-gate-form]");
+      const input = document.getElementById("planning-password");
+      const error = document.querySelector("[data-planning-gate-error]");
+      const hostname = window.location.hostname;
+      const isLocalHost = hostname === "localhost"
+        || hostname === "127.0.0.1"
+        || hostname === "::1"
+        || hostname.endsWith(".local");
+      const isProduction = window.location.protocol !== "file:" && !isLocalHost;
+      const isUnlocked = window.sessionStorage.getItem(ACCESS_KEY) === "granted";
+
+      if (!gate || !form || !input || !error || !isProduction || isUnlocked) {
+        document.documentElement.classList.remove("planning-locked");
+        if (gate) {
+          gate.hidden = true;
+        }
+        return;
+      }
+
+      gate.hidden = false;
+      window.requestAnimationFrame(() => input.focus());
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (input.value === PASSWORD) {
+          window.sessionStorage.setItem(ACCESS_KEY, "granted");
+          document.documentElement.classList.remove("planning-locked");
+          gate.hidden = true;
+          error.textContent = "";
+          form.reset();
+          return;
+        }
+
+        error.textContent = "Mật khẩu không đúng.";
+        input.select();
+      });
+    })();
+  </script>
+</body>
+
+</html>
