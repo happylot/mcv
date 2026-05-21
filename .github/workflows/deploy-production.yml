@@ -1,0 +1,65 @@
+name: Deploy Landing To i.matchingvietnam.com
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_HOST: 14.225.7.175
+      DEPLOY_PORT: "1786"
+      DEPLOY_USER: root
+      DEPLOY_PATH: /var/www/i.matchingvietnam.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deploy tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass rsync
+
+      - name: Validate deploy password
+        env:
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD || secrets.VPS_PASSWORD || secrets.SSH_PASSWORD }}
+        run: |
+          if [ -z "$DEPLOY_PASSWORD" ]; then
+            echo "Missing deploy password secret. Set one of: DEPLOY_PASSWORD, VPS_PASSWORD, SSH_PASSWORD."
+            exit 1
+          fi
+
+      - name: Ensure remote directory exists
+        env:
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD || secrets.VPS_PASSWORD || secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$DEPLOY_PASSWORD" ssh \
+            -p "$DEPLOY_PORT" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p '$DEPLOY_PATH'"
+
+      - name: Sync Landing to production web root
+        env:
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD || secrets.VPS_PASSWORD || secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$DEPLOY_PASSWORD" rsync -az --delete \
+            --omit-dir-times \
+            --no-perms \
+            --no-owner \
+            --no-group \
+            -e "ssh -p $DEPLOY_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+            Landing/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"

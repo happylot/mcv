@@ -85,17 +85,25 @@ Sau đó truy cập `http://localhost:8000`.
 
 ## CI/CD deploy
 
-Repo đã được cấu hình GitHub Actions tại `.github/workflows/deploy-pages.yml`.
+Repo đã được cấu hình GitHub Actions tại `.github/workflows/deploy-production.yml`.
 
 - Trigger: mỗi lần push lên nhánh `main`
 - Artifact deploy: toàn bộ thư mục `Landing/`
 - Web root trên production: nội dung bên trong `Landing/` sẽ được publish trực tiếp làm website
-- Target: GitHub Pages
+- Target server: `i.matchingvietnam.com`
+- Remote path: `/var/www/i.matchingvietnam.com`
 
-Để pipeline chạy được trên production, trong GitHub repo settings cần đặt:
+Workflow sẽ:
 
-- `Settings > Pages > Source`: `GitHub Actions`
-- `Settings > Actions > General`: workflow permissions cho phép đọc repo và deploy Pages
+- checkout source code
+- cài `sshpass` và `rsync`
+- đồng bộ toàn bộ `Landing/` lên server production bằng `rsync --delete`
+
+GitHub Actions cần có một trong các secrets sau cho mật khẩu SSH:
+
+- `DEPLOY_PASSWORD`
+- `VPS_PASSWORD`
+- `SSH_PASSWORD`
 
 ## Ghi chú
 
